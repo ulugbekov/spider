@@ -8,6 +8,7 @@ rescue LoadError
 end
 
 require 'optparse'
+require 'json'
 
 options = {path: "", limit: 10, out: ".", stdout: false}
 
@@ -77,7 +78,13 @@ Mechanize.new.get(url).search("a").first(limit).each do |link|
 	end
 end
 
-
+if std
+	puts documents.to_json
+else
+	File.open(destination + "/documents.json", "w+") do |f|
+		f << documents.to_json
+	end
+end
 
 
 
