@@ -86,16 +86,29 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
   #
-  # config.vm.provision "chef_solo" do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { mysql_password: "foo" }
-  # end
+
+
+
+   config.vm.provision "chef_solo" do |chef|
+      chef.cookbooks_path = "./cookbooks"
+      chef.add_recipe "build-essential"
+      chef.add_recipe "ruby_build"
+      chef.add_recipe "rbenv::user"
+      chef.add_recipe "rbenv::vagrant"
+
+     chef.json = {
+        rbenv: {
+          user_installs: [{
+            user: 'vagrant',
+            rubies: ["2.1.2"],
+            global: "2.1.2",
+          }]
+        }
+      }
+
+
+   end
+
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).

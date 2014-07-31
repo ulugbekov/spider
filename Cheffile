@@ -1,0 +1,6 @@
+site "http://community.opscode.com/api/v1"
+
+
+cookbook 'build-essential', '~> 1.4.4'
+cookbook 'ruby_build'
+cookbook 'rbenv', git: 'https://github.com/fnichol/chef-rbenv'
