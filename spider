@@ -5,6 +5,7 @@ begin
 rescue LoadError
 	puts "installing mechanize :)"
 	system('gem install "mechanize" --no-ri --no-rdoc')
+	require "mechanize"
 end
 
 require 'optparse'
@@ -51,7 +52,6 @@ parser.parse!
 
 options.merge!(options[:file]) if options[:file]
 
-puts options
 
 #Lets assume default port is 80 for regex
 
