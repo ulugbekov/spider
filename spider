@@ -13,7 +13,7 @@ require 'json'
 options = {path: "", limit: 10, out: ".", stdout: false}
 
 parser = OptionParser.new do |opts|
-	opts.banner = "Usage: ruby spider.rb [options]"
+	opts.banner = "Usage: ./spider [options]"
 	opts.on('-p', '--path path', 'Path, Required') do |path|
 		options[:path] = path;
 	end
