@@ -6,10 +6,10 @@ SITE
 
 GIT
   remote: https://github.com/fnichol/chef-rbenv
-  ref: master
-  sha: 0a3018634bafe58ad21c6ee271af015220e444b9
+  ref: c921ab6
+  sha: c921ab6593dba5384a1884168230edd44a5102e6
   specs:
-    rbenv (0.7.3)
+    rbenv (0.7.1)
 
 DEPENDENCIES
   build-essential (~> 1.4.4)

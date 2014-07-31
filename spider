@@ -35,6 +35,12 @@ parser = OptionParser.new do |opts|
 		options[:stdout] = true;
 	end
 
+	opts.on('-f', '--file file', 'File: in json format. Keys: path, limit, out, stdout') do |file|
+		#Let's assume path is correct, running out of time
+		options[:file] = JSON.parse(File.read(File.expand_path(file)), symbolize_names: true);
+	end
+
+
 	opts.on('-h', '--help', 'Help') do
 		puts opts
 		exit(0)
@@ -42,6 +48,8 @@ parser = OptionParser.new do |opts|
 end
 
 parser.parse!
+
+options.merge!(options[:file]) if options[:file]
 
 puts options
 

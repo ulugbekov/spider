@@ -87,11 +87,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # some recipes and/or roles.
   #
 
+  config.vm.provision :shell, :inline => 'apt-get install build-essential --no-upgrade --yes'
 
+  config.vm.provision :shell, :inline => "gem install chef --version 11.4.2 --no-rdoc --no-ri --conservative"
 
    config.vm.provision "chef_solo" do |chef|
       chef.cookbooks_path = "./cookbooks"
-      chef.add_recipe "build-essential"
       chef.add_recipe "ruby_build"
       chef.add_recipe "rbenv::user"
       chef.add_recipe "rbenv::vagrant"
