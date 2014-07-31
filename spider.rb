@@ -9,7 +9,7 @@ end
 
 require 'optparse'
 
-options = {path: nil, limit: 10, out: ".", stdout: false}
+options = {path: "", limit: 10, out: ".", stdout: false}
 
 parser = OptionParser.new do |opts|
 	opts.banner = "Usage: ruby spider.rb [options]"
@@ -43,3 +43,42 @@ end
 parser.parse!
 
 puts options
+
+#Lets assume default port is 80 for regex
+
+r=/(?:[-A-Za-z0-9]+\.)+[A-Za-z]{2,6}$/
+
+while !(options[:path].match r)
+	print 'Enter Path: '
+	options[:path] = gets.chomp
+end
+
+
+
+url = options[:path]
+limit = options[:limit]
+destination = options[:out]
+std = options[:stdout]
+documents = []
+
+#Apparently we don't know if server supports ssl
+unless	url.start_with?("http")
+	url = "http://" + url
+end
+
+Mechanize.new.get(url).search("a").first(limit).each do |link|
+	href = link.attributes["href"].value
+	if	href.start_with? "http"
+		title = Mechanize.new.get(href).search("title").text
+		documents << {:"#{href}" =>  title}
+	else
+		title = Mechanize.new.get(url + href).search("title").text
+		documents << {:"#{url + href}" => title}
+	end
+end
+
+
+
+
+
+
